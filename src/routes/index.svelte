@@ -1,46 +1,27 @@
 <script>
 	import TopTrump from '$lib/components/TopTrump.svelte';
-	import CalculationExplanation from '$lib/components/CalculationExplanation.svelte';
-
-	let customHours = 37.5;
-	let contractMonths = 12;
+	import ContractMonths from '$lib/components/ContractMonths.svelte';
+	import { employees, customEmployee } from '$lib/users';
 </script>
 
-<label>
-	Contract months ({contractMonths}):
-	<input type="range" bind:value={contractMonths} min={1} max={12} step={1} />
-</label>
+<ContractMonths />
 
 <div class="cards">
-	<a href="/foo">
-		<TopTrump name="Simon" hoursPerWeek={32} {contractMonths} />
+	<a href="/employee/{$customEmployee.name.toLowerCase()}">
+		<TopTrump employee={$customEmployee} isCustom={true} />
 	</a>
-	<a href="/foo">
-		<TopTrump name="Mary" hoursPerWeek={(7.5 / 2) * 5} {contractMonths} />
-	</a>
-
-	<a href="/foo">
-		<TopTrump name="Esteban" hoursPerWeek={7.5} {contractMonths} />
-	</a>
-
-	<a href="/foo">
-		<label>
-			Custom hours ({customHours}):
-			<input type="range" bind:value={customHours} min={1} max={37.5} step={0.5} />
-		</label>
-		<TopTrump name="Federico" hoursPerWeek={customHours} {contractMonths} />
-	</a>
+	{#each employees as employee}
+		<a href="/employee/{employee.name.toLowerCase()}">
+			<TopTrump {employee} />
+		</a>
+	{/each}
 </div>
-<CalculationExplanation name="Simon" hoursPerWeek={32} {contractMonths} />
 
 <style>
-	input[type='range'] {
-		width: 100%;
-	}
-
 	.cards {
 		display: flex;
-		/* flex-wrap: wrap; */
+		flex-wrap: wrap;
+		flex-direction: row;
 		justify-content: space-around;
 		gap: 2em;
 		max-width: 960px;
@@ -55,7 +36,6 @@
 
 	.cards a:hover,
 	.cards a:focus {
-		transform: scale(1.1) rotate(1deg);
-        z-index: 1000;
+		transform: scale(1.05) rotate(1deg);
 	}
 </style>

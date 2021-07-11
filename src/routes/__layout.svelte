@@ -7,7 +7,7 @@
 </svelte:head>
 
 <header>
-	<h1>Holiday Hours</h1>
+	<h1><a href="/">Holiday Hours</a></h1>
 </header>
 
 <main>
@@ -15,3 +15,10 @@
 </main>
 
 <footer>&copy; Simon Flack 2021</footer>
+
+
+<style>
+    h1 a {
+        color: inherit;
+    }
+</style>

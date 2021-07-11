@@ -1,47 +1,48 @@
 <script lang="ts">
 	import {
 		calculate,
-		daysPerWeek,
 		ratioPercent,
 		regularHours,
 		regularHoursPerWeek,
 		regularHolidayDays
 	} from '$lib/calculate';
+	import { contractMonths } from '$lib/stores';
 	import type { HolidayHoursCalculation } from '$lib/calculate';
 	import { plural } from '$lib/string';
+	import { customEmployee } from '$lib/users';
+	import type { EmployeeContract } from '$lib/users';
 
-	export let name = 'Unnamed person';
-	export let hoursPerWeek = 32;
-	export let contractMonths = 12;
+	export let employee: EmployeeContract = $customEmployee;
 
 	let calc: HolidayHoursCalculation;
 	let isPartTime = true;
+
 	$: {
-		calc = calculate(hoursPerWeek, contractMonths);
+		calc = calculate(employee.hoursPerWeek, $contractMonths);
 		isPartTime = calc.partTimeRatio < 1;
-		console.log(name, { isPartTime }, calc);
+		console.log(employee.name, { isPartTime }, calc);
 	}
 </script>
 
 <h2>
-	{name} ({#if isPartTime}Part time: {hoursPerWeek} hours per week{:else}Full time{/if})
+	{employee.name} ({#if isPartTime}Part time: {employee.hoursPerWeek} hours per week{:else}Full time{/if})
 </h2>
 
 {#if isPartTime}
 	<section>
 		<h3>{calc.partTimeRatioPercent}% of "full-time"</h3>
 		<p>
-			{name} is working <strong>{calc.partTimeRatioPercent}%</strong> of a full-time job. And is
-			entitled to approximately <strong>{calc.partTimeRatioPercent}%</strong> of annual leave (subject
-			to the length of employment, and rounding, etc).
+			{employee.name} is working <strong>{calc.partTimeRatioPercent}%</strong> of a full-time job.
+			And is entitled to approximately <strong>{calc.partTimeRatioPercent}%</strong> of annual leave
+			(subject to the length of employment, and rounding, etc).
 		</p>
 
 		<details>
 			<summary>How is this calculated?</summary>
 			<code>
 				(hoursPerWeek / {regularHoursPerWeek}) * 100<br />
-				// ({hoursPerWeek} / {regularHoursPerWeek}) * 100 = {ratioPercent(
-					hoursPerWeek,
+				// ({employee.hoursPerWeek} / {regularHoursPerWeek}) * 100 = {ratioPercent(
+					employee.hoursPerWeek,
 					regularHoursPerWeek
 				)}
 			</code>
@@ -57,12 +58,12 @@
 		to public holidays. Part-time staff holiday will be calculated on a pro-rata basis.
 	</blockquote>
 	<p>
-		As the length of employment is {contractMonths}
-		{plural(contractMonths, 'month')}, the number of holidays available to a full-time employee is {calc.contractHolidayDays}
+		As the length of employment is {$contractMonths}
+		{plural($contractMonths, 'month')}, the number of holidays available to a full-time employee is {calc.contractHolidayDays}
 	</p>
 	{#if isPartTime}
 		<p>
-			Since {name} is part-time, they will be allocated
+			Since {employee.name} is part-time, they will be allocated
 			<strong>{calc.partTimeHoliday} holidays</strong> (rounded up to the nearest half day).
 		</p>
 		<p>
@@ -77,13 +78,13 @@
 	<h3>Conversion of holiday "days" into "hours"</h3>
 
 	<p>
-		Since the number of holidays is already scaled appropriately according to the number of hours {name}
+		Since the number of holidays is already scaled appropriately according to the number of hours {employee.name}
 		is working, it is not necessary to also scale the length of a "day". Therefore, the conversion of
 		holidays into hours is simply:<br />
 		<code>numberOfHolidays x {regularHours}</code>.
 	</p>
 	<p>
-		Using this calculation, {name}'s holidays are approximately
+		Using this calculation, {employee.name}'s holidays are approximately
 		<strong>{calc.partTimeHolidayHours} hours</strong>.
 	</p>
 	<p>
@@ -93,8 +94,8 @@
 	</p>
 	<p>
 		This figure is close to the <strong>{calc.partTimeRatioPercent}%</strong> part-time ratio figure
-		we calculated based on {name}'s hours. It may vary a small degree depending on the length of the
-		contract due to rounding-up to the nearest half-day of holiday allocation.
+		we calculated based on {employee.name}'s hours. It may vary a small degree depending on the
+		length of the contract due to rounding-up to the nearest half-day of holiday allocation.
 	</p>
 </section>
 
@@ -119,7 +120,7 @@
 	</p>
 
 	<p>
-		Using this calculation, {name}'s holidays are approximately
+		Using this calculation, {employee.name}'s holidays are approximately
 		<strong>{calc.onTrackHolidayHours} hours</strong>.
 	</p>
 	<p>
@@ -131,7 +132,7 @@
 		This deviates significantly from the <strong
 			>{ratioPercent(calc.partTimeHolidayHours, calc.contractHolidayHours)}%</strong
 		>
-		of the previous calculation, for {name} who works
+		of the previous calculation, for {employee.name} who works
 		<strong>{calc.partTimeRatioPercent}%</strong> of the hours of a full-time employee.
 	</p>
 </section>
@@ -151,21 +152,23 @@
 	</p>
 
 	<p>
-		Using the straightforward holiday hours calculation for {name}, this would be:<br />
+		Using the straightforward holiday hours calculation for {employee.name}, this would be:<br />
 		<code>
 			workHoursPerHolidayHour = {calc.partTimeWorkHours} / {calc.partTimeHolidayHours}
 			= {calc.partTimeHolidayWorkValue} hours
 		</code>
-		{name} would work <strong>{calc.partTimeHolidayWorkValue}</strong> hours for every 1 hour of holiday.
+		{employee.name} would work <strong>{calc.partTimeHolidayWorkValue}</strong> hours for every 1 hour
+		of holiday.
 	</p>
 
 	<p>
-		Using the double-adjusted holiday hours calculation for {name}, this would be:<br />
+		Using the double-adjusted holiday hours calculation for {employee.name}, this would be:<br />
 		<code>
 			workHoursPerHolidayHour = {calc.onTrackWorkHours} / {calc.onTrackHolidayHours}
 			= {calc.onTrackHolidayWorkValue} hours
 		</code>
-		{name} would work <strong>{calc.onTrackHolidayWorkValue}</strong> hours for every 1 hour of holiday.
+		{employee.name} would work <strong>{calc.onTrackHolidayWorkValue}</strong> hours for every 1 hour
+		of holiday.
 	</p>
 
 	<p>
@@ -195,7 +198,8 @@
 		display: block;
 		border: 1px solid #888;
 		border-radius: 3px;
-		background: #ddd;
+		background: #bcd0fc;
+		color: #222;
 		font-family: 'Courier New', Courier, monospace;
 		font-weight: bold;
 		padding: 0.5em;
