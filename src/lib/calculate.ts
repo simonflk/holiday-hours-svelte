@@ -10,14 +10,17 @@ export type HolidayHoursCalculation = {
     contractHolidayHours: number,
     regularTotalHours: number,
     regularHoursPerWeek: number,
+    regularWorkHours: number,
+    regularHolidayWorkValue: number,
     partTimeRatio: number,
-    partTimeRatioFormatted: string,
+    partTimeRatioPercent: string,
     partTimeDaysPerWeek: number,
     partTimeHoliday: number,
     partTimeTotalHours: number,
     partTimeHolidayHours: number,
     partTimeWorkHours: number,
     partTimeHolidayWorkValue: number,
+    onTrackWorkHours: number,
     onTrackHolidayHours: number,
     onTrackHolidayWorkValue: number,
 }
@@ -26,10 +29,12 @@ export function calculate(hoursPerWeek:number, contractMonths:number) : HolidayH
     const contractRatio = (contractMonths / 12);
     const contractHolidayDays = roundUpHalf(regularHolidayDays * contractRatio);
     const contractHolidayHours = contractHolidayDays * regularHours;
-    const regularTotalHours = regularHoursPerWeek * contractMonths * weeksPerMonth;
-    const partTimeTotalHours = hoursPerWeek * contractMonths * weeksPerMonth;
+    const regularTotalHours = Math.round(regularHoursPerWeek * contractMonths * weeksPerMonth);
+    const regularWorkHours = regularTotalHours - contractHolidayHours;
+    const regularHolidayWorkValue = roundUpHalf(regularWorkHours / contractHolidayHours);
+    const partTimeTotalHours = Math.round(hoursPerWeek * contractMonths * weeksPerMonth);
     const partTimeRatio = hoursPerWeek / regularHoursPerWeek;
-    const partTimeRatioFormatted = partTimeRatio.toFixed(1);
+    const partTimeRatioPercent = (partTimeRatio * 100).toFixed(1);
     const partTimeDaysPerWeek = partTimeRatio * daysPerWeek;
     const partTimeHoliday = roundUpHalf(partTimeRatio * contractHolidayDays);
     const partTimeHolidayHours = partTimeHoliday * regularHours;
@@ -45,9 +50,11 @@ export function calculate(hoursPerWeek:number, contractMonths:number) : HolidayH
         contractHolidayDays,
         contractHolidayHours,
         regularTotalHours,
+        regularWorkHours,
         regularHoursPerWeek,
+        regularHolidayWorkValue,
         partTimeRatio,
-        partTimeRatioFormatted,
+        partTimeRatioPercent,
         partTimeDaysPerWeek,
         partTimeHoliday,
         partTimeHolidayHours,
@@ -55,6 +62,7 @@ export function calculate(hoursPerWeek:number, contractMonths:number) : HolidayH
         partTimeWorkHours,
         partTimeHolidayWorkValue,
         onTrackHolidayHours,
+        onTrackWorkHours,
         onTrackHolidayWorkValue,
     }
 }
