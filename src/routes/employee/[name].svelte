@@ -8,13 +8,18 @@
 	let employee =
 		employees.find((emp) => emp.name.toLowerCase() === $page.params.name.toLowerCase()) ||
 		$customEmployee;
-	console.log(employee);
+
+	$: {
+		employee =
+			employees.find((emp) => emp.name.toLowerCase() === $page.params.name.toLowerCase()) ||
+			$customEmployee;
+	}
 </script>
 
 <ContractMonths />
 <div class="container">
 	<aside>
-		<TopTrump {employee} />
+		<TopTrump {employee} isCustom={employee.name === $customEmployee.name} />
 	</aside>
 	<article>
 		<CalculationExplanation {employee} />
@@ -35,6 +40,6 @@
 
 	aside {
 		align-self: start;
-        margin-bottom: 2rem;
+		margin-bottom: 2rem;
 	}
 </style>
