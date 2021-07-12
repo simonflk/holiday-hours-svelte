@@ -105,7 +105,12 @@ footer {
 main {
     margin: 0 auto 2rem;
     width: 100%;
-    /* max-width: 80ch; */
+}
+
+main .content {
+    margin: 0 auto 2rem;
+    width: 100%;
+    max-width: 80ch;
 }
 
 
