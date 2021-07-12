@@ -17,7 +17,7 @@ export const employees : EmployeeContract[] = [
     {
         name: 'Ash',
         hoursPerWeek: 37.5 / 2,
-        avatarUrl: 'https://avataaars.io/?avatarStyle=Transparent&topType=LongHairBigHair&accessoriesType=Prescription02&hairColor=BrownDark&facialHairType=Blank&clotheType=Hoodie&clotheColor=PastelGreen&eyeType=Default&eyebrowType=UpDown&mouthType=Smile&skinColor=DarkBrown',
+        avatarUrl: 'https://avataaars.io/?avatarStyle=Transparent&topType=LongHairBigHair&accessoriesType=Prescription02&hairColor=BrownDark&facialHairType=Blank&clotheType=Hoodie&clotheColor=PastelGreen&eyeType=Default&eyebrowType=UpDown&mouthType=Default&skinColor=DarkBrown',
         avatarDesc: 'Avatar showing Ash, with long, flowing dark hair, dark-rimmed glasses and, and a big smile. Ash is wearing a green pastel hoodie.',
     },
     {

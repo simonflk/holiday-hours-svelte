@@ -28,6 +28,11 @@
 			<dd>
 				<div>
 					{#if isCustom}
+						<label
+							for="custom-hours"
+							aria-label="Edit number of hours per week"
+							on:click|stopPropagation|preventDefault>Edit me</label
+						>
 						<input
 							type="number"
 							min="1"
@@ -199,8 +204,16 @@
 	}
 
 	input[type='number'] {
-		color: white;
 		font-weight: bold;
-		background-color: deeppink;
+		/* color: white; */
+		/* background-color: deeppink; */
+		border: 3px dashed deeppink;
+		font-family: monospace;
+	}
+
+	label[for='custom-hours'] {
+		display: block;
+		font-size: 0.8em;
+		font-weight: bold;
 	}
 </style>

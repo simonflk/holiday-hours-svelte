@@ -80,9 +80,9 @@
 	<p>
 		Since the number of holidays is already scaled appropriately according to the number of hours {employee.name}
 		is working, it is not necessary to also scale the length of a "day". Therefore, the conversion of
-		holidays into hours is simply:<br />
-		<code>numberOfHolidays x {regularHours}</code>.
+		holidays into hours is simply:
 	</p>
+	<code>numberOfHolidays x {regularHours}</code>
 	<p>
 		Using this calculation, {employee.name}'s holidays are approximately
 		<strong>{calc.partTimeHolidayHours} hours</strong>.
@@ -109,7 +109,7 @@
 	</p>
 	<p>
 		In other words:<br />
-		<code>hours = (fullTimeHours x partTimeRatio) x (fullTimeHolidays x partTimeRatio)</code>.
+		<code>hours = (fullTimeHours x partTimeRatio) x (fullTimeHolidays x partTimeRatio)</code>
 	</p>
 	<p>
 		Or:<br />
@@ -183,25 +183,46 @@
 </section>
 
 <style>
-	p {
+	h2,
+	h3 {
+		margin-bottom: 0.5em;
+	}
+
+	h3 {
+		color: pink;
+	}
+
+	strong {
+		color: hotpink;
+	}
+
+	p,
+	blockquote,
+	code {
 		margin-bottom: 0.8em;
 	}
 
 	section {
 		margin-bottom: 1em;
 		padding: 1em;
-		border: 1px solid #888;
-		border-radius: 5px;
+		border: 1px solid pink;
+		border-radius: 8px;
 	}
 
 	code {
 		display: block;
-		border: 1px solid #888;
+		border: 1px solid pink;
 		border-radius: 3px;
 		background: #bcd0fc;
 		color: #222;
 		font-family: 'Courier New', Courier, monospace;
 		font-weight: bold;
 		padding: 0.5em;
+	}
+
+	blockquote {
+		border-left: 4px solid pink;
+		padding-left: 10px;
+		font-style: italic;
 	}
 </style>
