@@ -87,55 +87,61 @@
 		Using this calculation, {employee.name}'s holidays are approximately
 		<strong>{calc.partTimeHolidayHours} hours</strong>.
 	</p>
-	<p>
-		This is equal to approximately <strong
-			>{ratioPercent(calc.partTimeHolidayHours, calc.contractHolidayHours)}%</strong
-		> of the allotment for a full-time employee.
-	</p>
-	<p>
-		This figure is close to the <strong>{calc.partTimeRatioPercent}%</strong> part-time ratio figure
-		we calculated based on {employee.name}'s hours. It may vary a small degree depending on the
-		length of the contract due to rounding-up to the nearest half-day of holiday allocation.
-	</p>
+
+	{#if isPartTime}
+		<p>
+			This is equal to approximately <strong
+				>{ratioPercent(calc.partTimeHolidayHours, calc.contractHolidayHours)}%</strong
+			> of the allotment for a full-time employee.
+		</p>
+
+		<p>
+			This figure is close to the <strong>{calc.partTimeRatioPercent}%</strong> part-time ratio
+			figure we calculated based on {employee.name}'s hours. It may vary a small degree depending on
+			the length of the contract due to rounding-up to the nearest half-day of holiday allocation.
+		</p>
+	{/if}
 </section>
 
-<section>
-	<h3>What about adjusted holiday length?</h3>
+{#if isPartTime}
+	<section>
+		<h3>What about adjusted holiday length?</h3>
 
-	<p>
-		An alternate calculation suggested by OnTrack is to scale the length of a "holiday" in
-		proportion to the part-time contract <em>in addition to</em> scaling the number of holidays by the
-		same factor.
-	</p>
-	<p>
-		In other words:<br />
-		<code>hours = (fullTimeHours x partTimeRatio) x (fullTimeHolidays x partTimeRatio)</code>
-	</p>
-	<p>
-		Or:<br />
-		<code>hours = fullTimeHours x fullTimeHolidays x partTimeRatio<sup>2</sup></code>
-		Since we are scaling the holiday allowance by a <em>square</em> of this <tt>partTimeRatio</tt>,
-		this can have a dramatic, disproportionate effect on the holiday allowance, particularly for
-		people who work "more" part time.
-	</p>
+		<p>
+			An alternate calculation suggested by OnTrack is to scale the length of a "holiday" in
+			proportion to the part-time contract <em>in addition to</em> scaling the number of holidays by
+			the same factor.
+		</p>
+		<p>
+			In other words:<br />
+			<code>hours = (fullTimeHours x partTimeRatio) x (fullTimeHolidays x partTimeRatio)</code>
+		</p>
+		<p>
+			Or:<br />
+			<code>hours = fullTimeHours x fullTimeHolidays x partTimeRatio<sup>2</sup></code>
+			Since we are scaling the holiday allowance by a <em>square</em> of this
+			<tt>partTimeRatio</tt>, this can have a dramatic, disproportionate effect on the holiday
+			allowance, particularly for people who work "more" part time.
+		</p>
 
-	<p>
-		Using this calculation, {employee.name}'s holidays are approximately
-		<strong>{calc.onTrackHolidayHours} hours</strong>.
-	</p>
-	<p>
-		This is equal to approximately <strong
-			>{ratioPercent(calc.onTrackHolidayHours, calc.contractHolidayHours)}%</strong
-		> of the allotment for a full-time employee.
-	</p>
-	<p>
-		This deviates significantly from the <strong
-			>{ratioPercent(calc.partTimeHolidayHours, calc.contractHolidayHours)}%</strong
-		>
-		of the previous calculation, for {employee.name} who works
-		<strong>{calc.partTimeRatioPercent}%</strong> of the hours of a full-time employee.
-	</p>
-</section>
+		<p>
+			Using this calculation, {employee.name}'s holidays are approximately
+			<strong>{calc.onTrackHolidayHours} hours</strong>.
+		</p>
+		<p>
+			This is equal to approximately <strong
+				>{ratioPercent(calc.onTrackHolidayHours, calc.contractHolidayHours)}%</strong
+			> of the allotment for a full-time employee.
+		</p>
+		<p>
+			This deviates significantly from the <strong
+				>{ratioPercent(calc.partTimeHolidayHours, calc.contractHolidayHours)}%</strong
+			>
+			of the previous calculation, for {employee.name} who works
+			<strong>{calc.partTimeRatioPercent}%</strong> of the hours of a full-time employee.
+		</p>
+	</section>
+{/if}
 
 <section>
 	<h3>Holiday "value"</h3>
@@ -151,35 +157,47 @@
 		<code> workHoursPerHolidayHour = hoursWorked / holidayHours </code>
 	</p>
 
-	<p>
-		Using the straightforward holiday hours calculation for {employee.name}, this would be:<br />
-		<code>
-			workHoursPerHolidayHour = {calc.partTimeWorkHours} / {calc.partTimeHolidayHours}
-			= {calc.partTimeHolidayWorkValue} hours
-		</code>
-		{employee.name} would work <strong>{calc.partTimeHolidayWorkValue}</strong> hours for every 1 hour
-		of holiday.
-	</p>
+	{#if isPartTime}
+		<p>
+			Using the straightforward holiday hours calculation for {employee.name}, this would be:<br />
+			<code>
+				workHoursPerHolidayHour = {calc.partTimeWorkHours} / {calc.partTimeHolidayHours}
+				= {calc.partTimeHolidayWorkValue} hours
+			</code>
+			{employee.name} would work <strong>{calc.partTimeHolidayWorkValue}</strong> hours for every 1 hour
+			of holiday.
+		</p>
 
-	<p>
-		Using the double-adjusted holiday hours calculation for {employee.name}, this would be:<br />
-		<code>
-			workHoursPerHolidayHour = {calc.onTrackWorkHours} / {calc.onTrackHolidayHours}
-			= {calc.onTrackHolidayWorkValue} hours
-		</code>
-		{employee.name} would work <strong>{calc.onTrackHolidayWorkValue}</strong> hours for every 1 hour
-		of holiday.
-	</p>
+		<p>
+			Using the double-adjusted holiday hours calculation for {employee.name}, this would be:<br />
+			<code>
+				workHoursPerHolidayHour = {calc.onTrackWorkHours} / {calc.onTrackHolidayHours}
+				= {calc.onTrackHolidayWorkValue} hours
+			</code>
+			{employee.name} would work <strong>{calc.onTrackHolidayWorkValue}</strong> hours for every 1 hour
+			of holiday.
+		</p>
 
-	<p>
-		Compared to a full-time employee:<br />
-		<code>
-			workHoursPerHolidayHour = {calc.regularWorkHours} / {calc.contractHolidayHours}
-			= {calc.regularHolidayWorkValue} hours
-		</code>
-		A full-time employee would work <strong>{calc.regularHolidayWorkValue}</strong> hours for every 1
-		hour of holiday.
-	</p>
+		<p>
+			Compared to a full-time employee:<br />
+			<code>
+				workHoursPerHolidayHour = {calc.regularWorkHours} / {calc.contractHolidayHours}
+				= {calc.regularHolidayWorkValue} hours
+			</code>
+			A full-time employee would work <strong>{calc.regularHolidayWorkValue}</strong> hours for every
+			1 hour of holiday.
+		</p>
+	{:else}
+		<p>
+			As a full-time employee:<br />
+			<code>
+				workHoursPerHolidayHour = {calc.regularWorkHours} / {calc.contractHolidayHours}
+				= {calc.regularHolidayWorkValue} hours
+			</code>
+			{employee.name} would work <strong>{calc.regularHolidayWorkValue}</strong> hours for every 1 hour
+			of holiday.
+		</p>
+	{/if}
 </section>
 
 <style>
