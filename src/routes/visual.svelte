@@ -92,10 +92,10 @@
 		<p>
 			It's a simple formula:
 			<code>
-				numberOfWeeksInMonth = (365 / 12) / 7 (approx 4.3)<br />
-				employmentLength = {$contractMonths} (months)<br />
-				holidayHours = (calculated above)<br />
-				hoursWorked = (hoursPerWeek * numberOfWeeksInMonth * employmentLength) - holidayHours<br />
+				numberOfWeeksInMonth = (365 / 12) / 7 (approx 4.3)<br /><br />
+				employmentLength = {$contractMonths} (months)<br /><br />
+				holidayHours = (calculated above)<br /><br />
+				hoursWorked = (hoursPerWeek * numberOfWeeksInMonth * employmentLength) - holidayHours<br /><br />
 				workHoursPerHolidayHour = hoursWorked / holidayHours
 			</code>
 		</p>
