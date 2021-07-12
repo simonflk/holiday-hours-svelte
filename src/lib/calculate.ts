@@ -5,6 +5,7 @@ export const regularHolidayDays = 25;
 export const weeksPerMonth = 365 / 12 / 7;
 
 export type HolidayHoursCalculation = {
+    hoursPerWeek: number,
     contractRatio: number,
     contractHolidayDays: number,
     contractHolidayHours: number,
@@ -14,7 +15,7 @@ export type HolidayHoursCalculation = {
     regularHolidayWorkValue: number,
     partTimeRatio: number,
     partTimeRatioPercent: string,
-    partTimeDayHours: number,
+    partTimeDayHours: string,
     partTimeDaysPerWeek: number,
     partTimeHoliday: number,
     partTimeTotalHours: number,
@@ -51,6 +52,7 @@ export function calculate(hoursPerWeek:number, contractMonths:number) : HolidayH
 
 
     return {
+        hoursPerWeek,
         contractRatio,
         contractHolidayDays,
         contractHolidayHours,

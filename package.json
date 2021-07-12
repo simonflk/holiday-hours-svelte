@@ -29,5 +29,8 @@
   "type": "module",
   "volta": {
     "node": "16.4.2"
+  },
+  "dependencies": {
+    "svelte-frappe-charts": "1.8.3"
   }
 }

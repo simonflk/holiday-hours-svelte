@@ -1,34 +1,3 @@
-body {
-    margin: 0;
-    min-height: 100vh;
-    display: flex;
-    flex-direction: column;
-    font-family: sans-serif;
-    color: white;
-
-    background: #4b6cb7; /* fallback for old browsers */
-    background: -webkit-linear-gradient(to bottom, #4b6cb7, #182848); /* Chrome 10-25, Safari 5.1-6 */
-    background: linear-gradient(to bottom, #4b6cb7, #182848); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
-
-}
-
-main, header, footer {
-    padding-inline: 10px;
-}
-
-footer {
-    margin-top: auto;
-}
-
-main {
-    margin: 0 auto 2rem;
-    width: 100%;
-    /* max-width: 80ch; */
-}
-
-
-
-
 /*----------------------------------------------------------------------------------------
   https://piccalil.li/blog/a-modern-css-reset/
 ----------------------------------------------------------------------------------------*/
@@ -105,4 +74,80 @@ select {
         transition-duration: 0.01ms !important;
         scroll-behavior: auto !important;
     }
+}
+
+
+/*----------------------------------------------------------------------------------------
+  Site styles
+----------------------------------------------------------------------------------------*/
+body {
+    margin: 0;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    font-family: sans-serif;
+    color: white;
+
+    background: #4b6cb7; /* fallback for old browsers */
+    background: -webkit-linear-gradient(to bottom, #4b6cb7, #182848); /* Chrome 10-25, Safari 5.1-6 */
+    background: linear-gradient(to bottom, #4b6cb7, #182848); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+
+}
+
+main, header, footer {
+    padding-inline: 10px;
+}
+
+footer {
+    margin-top: auto;
+}
+
+main {
+    margin: 0 auto 2rem;
+    width: 100%;
+    /* max-width: 80ch; */
+}
+
+
+h2,
+h3 {
+    margin-bottom: 0.5em;
+}
+
+h3 {
+    color: pink;
+}
+
+strong {
+    color: hotpink;
+}
+
+p,
+blockquote,
+code {
+    margin-bottom: 0.8em;
+}
+
+section {
+    margin-bottom: 1em;
+    padding: 1em;
+    border: 1px solid pink;
+    border-radius: 8px;
+}
+
+code {
+    display: block;
+    border: 1px solid pink;
+    border-radius: 3px;
+    background: #bcd0fc;
+    color: #222;
+    font-family: 'Courier New', Courier, monospace;
+    font-weight: bold;
+    padding: 0.5em;
+}
+
+blockquote {
+    border-left: 4px solid pink;
+    padding-left: 10px;
+    font-style: italic;
 }
