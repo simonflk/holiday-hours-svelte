@@ -13,7 +13,7 @@
 		<ul>
 			<li><a href="/" aria-current={$page.path === '/' ? 'page' : false}>Home</a></li>
 			<li>
-				<a href="/visual" aria-current={$page.path === '/visual' ? 'page' : false}>A visual guide</a
+				<a href="/examples" aria-current={$page.path === '/examples' ? 'page' : false}>Examples</a
 				>
 			</li>
 		</ul>
@@ -67,4 +67,9 @@
 	h1 a {
 		color: pink;
 	}
+
+    [aria-current=page] {
+        font-weight: bold;
+        text-decoration: none;
+    }
 </style>
