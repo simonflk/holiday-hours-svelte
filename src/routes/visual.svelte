@@ -41,7 +41,7 @@
 				A "naive" calculation - A direct proportion of the "full-time" allocation based on part-time
 				hours. This essentially plots the percentage of part-time hours along the same scale.
 			</li>
-			<li>A "rounded" amound - showing this figure rounded up to the nearest half day.</li>
+			<li>A "rounded" amount - showing this figure rounded up to the nearest half day.</li>
 		</ul>
 		<HolidayDaysChart />
 		<p>
