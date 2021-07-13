@@ -3,7 +3,9 @@
 	import HolidayHoursChart from '$lib/components/HolidayHoursChart.svelte';
 	import HolidayDaysChart from '$lib/components/HolidayDaysChart.svelte';
 	import HolidayValueChart from '$lib/components/HolidayValueChart.svelte';
+	import TopTrump from '$lib/components/TopTrump.svelte';
 	import { contractMonths } from '$lib/stores';
+	import { customEmployee } from '$lib/users';
 </script>
 
 <div class="content">
@@ -32,6 +34,18 @@
 
 		<ContractMonths />
 	</section>
+
+    <section>
+        <h3>Interactive calculator</h3>
+
+        <div class="calculator">
+            <div class="center">
+                <TopTrump employee={$customEmployee} isCustom={true} />
+            </div>
+        </div>
+
+        <a href="/examples">View more examples and detailed calculations</a>
+    </section>
 
 	<section>
 		<h3>Allocation of holidays to part-time workers</h3>
@@ -134,4 +148,15 @@
 	:global(.chart-container .legend-dataset-text) {
 		fill: white;
 	}
+
+    a {
+        color: pink;
+        font-weight: bold;
+    }
+    .center {
+        margin: 0 auto;
+    }
+    .calculator {
+        display: flex;
+    }
 </style>
